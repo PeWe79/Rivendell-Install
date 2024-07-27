@@ -1,0 +1,51 @@
+This is the README file for the GlassCoder package.
+
+This software comes with ABSOLUTELY NO WARRANTY.  See the file 'COPYING' for
+details.
+
+See the file 'INSTALL' for instructions on building GlassCoder from source.
+
+GlassCoder is a minimalist audio encoder for IceCast and Shoutcast streaming
+servers as well as HTTP Live Streaming (HLS). It supports the following
+audio sources:
+
+  Advanced Linux Sound Architeture (ALSA)
+  AudioScience HPI (ASIHPI)
+  File Streaming (FILE)
+  JACK Audio Connection Kit (JACK)
+
+The base GlassCoder streamer component utilizes no configuration files or
+GUI interface whatsoever; with the 'user interface' consisting entirely of
+the command-line invocation.  As such, it is well suited for use cases where
+the encoder is completely driven by an external system or script.
+
+The following audio codecs are supported:
+
+   MPEG-1/1.5 Layer 2 ('MP2')
+   MPEG-1/1.5 Layer 3 ('MP3')
+   MPEG-4 Advanced Audio Coding, High Efficiency Profile ('HE-AAC+')
+   Ogg Opus
+   Ogg Vorbis
+
+The following additional utilities are included:
+
+GlassGui, a GUI front end for a single instance of the glasscoder(1) audio
+encoder. It provides a convenient and discoverable means for creating and
+saving glasscoder(1) invocations as well as an instance management system
+for saving multiple sets of configurations on the local system.
+
+GlassCommander, a high-density GUI front end for the glasscoder(1) audio
+encoder. It provides a convenient and discoverable means for creating and
+saving glasscoder(1) invocations and an instance management system (fully
+compatible with that of glassgui(1)) for saving multiple sets of
+configurations on the local system in a manner that conserves screen
+real-estate. Glasscommander(1) is capable of hosting dozens of simultaneous
+glasscoder(1) instances while still allowing easy access to the control and
+status of each one.
+
+This product includes software developed by the OpenSSL Project
+for use in the OpenSSL Toolkit. (http://www.openssl.org/).
+
+This program is released under the GNU General Public License version 2 with
+the additional exemption that compiling, linking, and/or using OpenSSL is
+allowed.

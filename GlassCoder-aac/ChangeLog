@@ -1,0 +1,1060 @@
+2014-02-17 Fred Gleason <fredg@paravelsystems.com>
+	* Initial package creation.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented basic MPEG-1 Layer 3 streaming.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored sources into separate components for Jack, Lame and
+	Shout.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented sample rate conversion.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the 'make rpm' target.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the names of the input ports from 'sirion_<n>' to
+	'input_<n>'.
+2014-02-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added '--stream-description', '--stream-genre',
+	'--stream-name' and '--stream-url' options.
+2014-02-24 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.0.
+2014-03-25 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the project name to 'glasscoder'.
+2014-03-25 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'README'.
+2014-03-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added manpage for glasscoder in 'docs/glasscoder.1'.
+2014-03-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'IcyConnection' class in 'src/icyconnection.[cpp,h].
+2014-03-26 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'libshout' dependency.
+2014-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Connector' base class in 'src/connector.cpp' and
+	'src/connector.h'.
+	* Added an 'IcyConnector' class in 'src/icyconnector.cpp' and
+	'src/icyconnector.h'.
+2014-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'src/shout.cpp'.
+2014-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'src/layer3.cpp'.
+	* Refactored code to employ abstract Codec and Connector classes.
+2014-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Connector::urlEncode()' and 'Connector::urlDecode()'
+	methods in 'src/connector.cpp' and 'src/connector.h'.
+2014-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed 'src/icyconnector.cpp' to 'src/iceconnector.cpp'
+	* Renamed 'src/icyconnector.h' to 'src/iceconnector.h'
+	* Added 'Connector::base64Encode()' and 'Connector::base64Decode()'
+	methods in 'src/connector.cpp' and 'src/connector.h'.
+	* Implemented proper password processing in 'src/iceconnector.cpp'.
+2014-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented automatic servier reconnection in 'src/connector.cpp',
+	'src/connector.h', 'src/iceconnector.cpp' and 'src/iceconnector.h'.
+2014-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a connector for the ICY [Shoutcast 1] protocol in
+	'src/icyconnector.cpp' and 'src/icyconnector.h'.
+2014-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored signaling in server connectors to provide reliable
+	notification of authentication failures.
+2014-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'Connector::Shoutcast2Server' and
+	'Connector::Icecast1Server' enumeration values from
+	'src/connector.h'.
+	* Updated the glasscoder(1) man page.
+2014-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added accessor methods for 'streamIrc', 'streamIcq' and
+	'streamAim' in 'src/connector.cpp' and 'src/connector.h'.
+	* Implemented fields for 'streamIrc', 'streamIcq' and
+	'streamAim' in 'src/icyconnector.cpp' and 'src/icyconnector.h'.
+	* Updated the glasscoder(1) man page.
+2014-03-31 Fred Gleason <fredg@paravelsystems.com>
+	* Added '-Wno-strict-aliasing' to CPP_FLAGS in 'src/Makefile.am'.
+2014-03-31 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'AUTHORS'.
+	* Updated 'INSTALL'.
+	* Updated 'README'.
+2014-03-31 Fred Gleason <fredg@paravelsystems.com>
+	* Documented the '-d' switch in the glasscoder(1) man page.
+2014-03-31 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.6.0.
+2014-03-31 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+2014-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented AAC single channel format.
+2014-06-14 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented AAC stereo format.
+	* Refactored the 'Codec::encode()' method in 'src/codec.cpp' to
+	support exact PCM buffer sizes.
+2014-06-14 Fred Gleason <fredg@paravelsystems.com>
+	* Documented AAC format in 'docs/glasscoder.1'
+2014-06-14 Fred Gleason <fredg@paravelsystems.com>
+	* Documented the FAAC dependency in 'INSTALL'.
+2014-06-15 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented MPEG-1 Layer 2 format in 'src/mpegl2codec.cpp' and
+	'src/mpegl2codec.h'.
+2014-06-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added '--audio-bitmode=' and '--audio-quality=' switches in
+	'src/glasscoder.cpp', 'src/glasscoder.h', 'src/codec.cpp' and
+	'src/codec.h'.
+2014-06-16 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the '--audio-bitmode=' switch in 'src/glasscoder.cpp',
+	'src/glasscoder.h', 'src/codec.cpp' and 'src/codec.h'.
+	* Removed the '-d' switch in 'src/glasscoder.cpp'.
+	* Added support for VBR encoding in 'src/mpeg3codec.cpp' and
+	'src/mpeg3codec.h'.
+	* Added support for VBR encoding in 'src/mpeg2codec.cpp' and
+	'src/mpeg2codec.h'.
+	* Added support for VBR encoding in 'src/aaccodec.cpp' and
+	'src/aaccodec.h'.
+2014-06-16 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented OggVorbis format in 'src/vorbiscodec.cpp' and
+	'src/vorbiscodec.h'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added optional dependencies for OggVorbis support in 'INSTALL'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'README'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented MPEG-4 HE-AAC+ format in 'src/heaaccodec.cpp' and
+	'src/heaaccodec.h'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed build errors when building with no codec libraries.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented Opus [RFC 6717] format in 'src/opuscodec.cpp' and
+	'src/opuscodec.h'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the mime-type for Ogg Vorbis to 'audio/ogg' in
+	'src/vorbiscodec.cpp'.
+2014-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added error reporting in 'src'opuscodec.cpp'.
+2014-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored rules for detecting Ogg components in 'configure.ac'.
+2014-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Removed LibTool components from 'configure.ac' and 'autogen.sh'.
+2014-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/heaaccodec.h' that broke the build when the
+	AAACPlus library was not present.
+2014-06-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added note for building on Ubuntu in 'INSTALL'.
+2014-06-19 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the default audio format to 'VORBIS' in
+	'src/glasscoder.cpp'.
+2014-06-19 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.8.0.
+2014-06-19 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'glasscoder.spec.in'.
+2014-07-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added libdl to the libraries list in 'configure.ac'.
+2014-08-22 Fred Gleason <fredg@paravelsystems.com>
+	* Modernized the AM_INIT() and AC_INIT() invocations in
+	'configure.ac'.
+2015-02-24 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the 'make rpm' target to use in-home build directories.
+2015-03-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added '-Wno-portability' flag to the automake(1) invocation
+	in 'autogen.sh'.
+2015-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for Shoutcast v2.
+2015-04-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added a sanity check for specifying no mountpoint when using
+	an IceCast2 server in 'src/glasscoder.cpp'.
+2015-04-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/jack.cpp' that threw a segfault when
+	jack_port_get_buffer() returned a NULL port value.
+2015-04-20 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.8.2.
+2015-07-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'bad password' diagnostic message to the Shoutcast
+	connector in 'src/icyconnector.cpp' and 'src/icyconnector.h'.
+2015-08-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added a connector for HLS/HTTP streaming in 'src/hlsconnector.cpp'
+	and 'src/hlsconnector.h'.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added code for stream distribution via http PUT.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added stop mechanism for connectors.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored build system to allow co-existence with Qt5.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented MPEG-2 elemental stream timestamps for HLS streams
+	in 'src/hlsconnector.cpp'.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Enabled live streaming mode in 'src/hlsconnector.cpp'.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Optimized temporary directory space usage in 'src/hlsconnector.cpp'.
+2015-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'EXT-X-START' tag to the playlist for HLS streaming in
+	'src/hlsconnector.cpp'.
+	* Incremented 'HLS_VERSION' to 6 in 'src/hlsconnector.h'.
+2015-08-11 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented garbage collection for stale media segments in
+	HLS streaming in 'src/hlsconnector.cpp' and 'src/hlsconnector.h'
+2015-08-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a curl(1) dependency in 'glasscoder.spec.in'.
+2015-08-11 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented support for HTTP Basic authentication in
+	'src/hlsconnector.cpp' and 'src/hlsconnector.h'.
+2015-08-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a sample HLS publishing configuration for Apache in
+	'conf/httpd/'.
+2015-08-12 Fred Gleason <fredg@paravelsystems.com>
+	* Removed useless distro detection code in 'configure.ac'.
+2015-08-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Codec::completeFrames()' and 'Codec::setCompleteFrames()'
+	methods in 'src/codec.cpp' and 'src/codec.h'.
+2015-08-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for multi-rate HLS streams.
+2015-08-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for Master Playlists for multi-rate HLS streams.
+2015-08-12 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/heaccodec.cpp' that threw a segfault when
+	specifying a non-supported stream bitrate.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the JACK audio source to use an abstract class-based
+	design.
+	* Swallowed the Jack_ringbuffer_* routines from Jack2.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'FileDevice' audio source in 'src/filedevice.cpp' and
+	'src/filedevice.h'.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'AudioDevice::remixChannels()' method in
+	'src/audiodevice.cpp' and 'src/audiodevice.h'.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for reading the filename from standard input for the
+	FILE source in 'src/filedevice.cpp'.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'AlsaDevice' audio source in 'src/alsadevice.cpp' and
+	'src/alsadevice.h'.
+2015-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked the values for buffer size in 'src/alsadevice.cpp' and
+	'src/alsadevice.h'.
+2015-08-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'AsiHpiDevice' audio source in 'src/asihpidevice.cpp' and
+	'src/asihpidevice.h'.
+2015-08-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/asihpidevice.cpp' that broke processing of the
+	'--asihpi-adapter-index' and '--asihpi-input-index' switches.
+2015-08-17 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the '--list-codecs' switch in 'src/glasscoder.cpp'
+	and 'src/glasscoder.h'.
+	* Implemented the '--list-devices' switch in 'src/glasscoder.cpp'
+	and 'src/glasscoder.h'.
+2015-08-17 Fred Gleason <fredg@paravelsystems.com>
+	* Moved source for glasscoder(1) into 'src/glasscoder/'.
+	* Moved 'src/cmdswitch.cpp' and 'src'/cmdswitch.h' into 'src/common/'.
+2015-08-18 Fred Gleason <fredg@paravelsystems.com>
+	* Stubbed out glassgui(1) in 'src/glassgui/'.
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented Start/Stop button functionality in glassgui(1).
+	* Added a 'Show Code' button in glassgui(1).
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented save/restore of current settings for glassgui(1).
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented logic to cleanly shutdown the underlying glasscoder(1)
+	process if glassgui(1) is closed with an active encoder process.
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Stream Metadata Settings' section to glassgui(1).
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'ALSA Device' control to GlassGui(1).
+2015-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added an HpiInputListView widget in
+	'src/glassgui/hpiinputlistview.cpp' and
+	'src/glassgui/hpiinputlistview.h'.
+2015-08-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented persistent data for '--asihpi-adapter-index' and
+	'--asihpi-input-index' values in 'src/glassgui/glassgui.cpp'.
+2015-08-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented persistent data for '--jack-server-name' and
+	'--jack-client-name' values in 'src/glassgui/glassgui.cpp'.
+2015-08-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented persistent data for '--alsa-device' value in
+	'src/glassgui/glassgui.cpp'.
+2015-08-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'AudioDevice::isAvailable()' method in
+	'src/common/audiodevice.cpp' and 'src/common/audiodevice.h'.
+	* Fixed a bug in 'src/glassgui/hpiinputlistview.cpp' that threw
+	a segfault when attempting to read parameters when no ASI card was
+	present.
+2015-08-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a '--meter-data' switch in for glasscoder(1).
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented meter level display in glassgui(1).
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented meter level display for the FILE source in glasscoder(1).
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Calibrated meter for 0 dBFS in 'src/glassgui/stereometer.cpp'.
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented meter level display for the ALSA source in glasscoder(1).
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassgui/glassgui.cpp' that caused the codec
+	channels parameter to always be '2'.
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/glasscoder.cpp' that broke audio
+	metering for single channel modes.
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassgui/glassgui.cpp' that broke preservation
+	of codec parameter settings between sessions.
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented meter level display for the JACK source in glasscoder(1).
+2015-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented control locks in glassgui(1).
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a status bar in glassgui(1).
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/asihpidevice.cpp' that broke the
+	build when configured with no HPI support.
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'src/glassgui/glassgui.cpp' to escape arguments
+	containing spaces where generating a code dump.
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the default Server Port from '8000' to '80'.
+	* Added support for multi-rate streaming to glassgui(1).
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	Added 'Connector::curlStrError()' and 'Connector::httpStrError()'
+	metehods in 'src/common/connector.cpp' and 'src/common/connector.h'.
+	* Cleaned up error logging for the HLS server connector in
+	'src/glasscoder/hlsconnector.cpp'.
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Added icons in 'icons/'.
+	* Added 'xdg/glassgui.desktop'.
+2015-08-25 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'common/audiodevice.cpp' that broke the build on
+	RHEL 6.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'gui' subpackage in 'glasscoder.spec.in'.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+	* Updated 'README'.
+	* Updated glasscoder(1) man page.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Removed a 'jack2' build dependency from 'glasscoder.spec.in'.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked the required version for 'libsndfile' in 'INSTALL'.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--verbose' switch to glasscoder(1).
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.9.0.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/hlsconnector.cpp' that caused
+	the HLS stream connector to intermittently generate "CURL overrun"
+	errors.
+2015-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.1.
+2015-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/hlsconnector.cpp' that caused
+	the HLS stream connector to fail to purge stale media files from
+	active publish points.
+2015-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up a moc(1) warning in 'src/glassgui/hpiinputlistview.h'.
+2015-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/hlsconnector.cpp' that caused
+	error logging for the DELETE process to fail.
+2015-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Codec Settings' dialog in 'src/glassgui/codecdialog.cpp'
+	and 'src/glassgui/codecdialog.h'.
+	* Added a 'Stream Settings' dialog in 'src/glassgui/streamdialog.cpp'
+	and 'src/glassgui/streamdialog.h'.
+2015-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Source Settings' dialog in 'src/glassgui/sourcedialog.cpp'
+	and 'src/glassgui/sourcedialog.h'.
+2015-08-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added an '--asihpi-input-gain' switch to the ASIHPI source in
+	'src/glasscoder/asihpidevice.cpp' and 'src/glasscoder/asihpidevice.h'.
+	* Added an '--asihpi-channel-mode' switch to the ASIHPI source in
+	'src/glasscoder/asihpidevice.cpp' and 'src/glasscoder/asihpidevice.h'.
+2015-08-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added an '--asihpi-input-source' switch to the ASIHPI source in
+	'src/glasscoder/asihpidevice.cpp' and 'src/glasscoder/asihpidevice.h'.
+	* Added an '--asihpi-input-type' switch to the ASIHPI source in
+	'src/glasscoder/asihpidevice.cpp' and 'src/glasscoder/asihpidevice.h'.
+2015-08-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'src/glassgui/hpiwidget.cpp' and
+	'src/glassgui/hpiwidget.h' that broke the build when configured with
+	no ASIHPI support.
+2015-08-29 Fred Gleason <fredg@paravelsystems.com>
+	* Commented out the 'HPI_SOURCENODE_BLULINK' enumeration point
+	in 'src/glassgui/hpiwidget.cpp' to fix a build problem on RHEL6.
+2015-08-31 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassgui/sourcedialog.cpp' that caused
+	connections to fail when using a ASI card with no input type
+	multiplexer control.
+2015-08-31 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'src/glassgui/hpiwidget.cpp' to suppress spurious
+	HPI error messages.
+2015-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.2.
+2015-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented --server-script-up and --server-script-down switches
+	in 'src/glasscoder/glasscoder.cpp', 'src/glasscoder/glasscoder.h',
+	'src/common/connector.cpp' and 'src/common/connector.h'.
+2015-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a Server Settings dialog in 'src/glassgui/serverdialog.cpp'
+	and 'src/glassgui/serverdialog.h'.
+2015-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CONNECTED Script' and 'DISCONNECTED Script' controls to the
+	Server Settings dialog in 'src/glassgui/serverdialog.cpp'
+	and 'src/glassgui/serverdialog.h'.
+2015-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Increased the size of the View Code dialog in
+	'src/glassgui/codeviewer.cpp'.
+2015-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented an '--instance-name' switch in 'src/glassgui/glassgui.cpp'
+	and 'src/glassgui/glassgui.h'.
+2015-09-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/alsadevice.cpp' that broke S32_LE
+	format support for ALSA.
+2015-09-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'MessageWidget' widget in 'src/glassgui/messagewidget.cpp'
+	and 'src/glassgui/messagewidget.h'.
+	* Added logging statements for the ALSA sample format code in
+	'src/glasscoder/alsadevice.cpp'.
+2015-09-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassgui/glasgui.cpp' that would throw a
+	segfault when processing an error message.
+2015-09-14 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.3.
+2015-09-21 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the global default --server-username value to the empty
+	string.
+	* Set an Icecast-specific default value for --server-username to
+	'source'.
+2015-09-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/hlsconnector.cpp' that caused
+	the master index file to be mis-formatted when configured to use
+	multi-rate streams.
+2015-09-21 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.4.
+2015-09-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'FileConveyor' class in 'src/glasscoder/fileconveyor.cpp'
+	and 'src/glasscoder/fileconveyor.h'.
+	* Refactored the HLS streaming connector to serialize HTTP
+	operations.
+2015-09-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/hlsconnector.cpp' that caused
+	a lockup upon exit.
+2015-09-22 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the HLS streaming connector to use a single FileConveyor.
+2015-09-24 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.5.
+2015-09-24 Fred Gleason <fredg@paravelsystems.com>
+	* Replaced '--server-hostname', '--server-mountpoint' and
+	'--server-port' options with the '--server-url' option.
+	* Replaced '--server-username' and '--server=password' options with
+	the '--server-auth' option.
+2015-09-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Enable verbose logging' checkbox to the Server Settings
+	dialog in 'src/glassgui/serverdialog.cpp' and
+	'src/glassgui/serverdialog.h'.
+2015-09-24 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the 'Connector::writeData()' method in
+	'src/common/connector.cpp' so as to send media data to the send
+	queue regardless of the connection state.
+	* Added a 'ConveyorEvent::origination()' method in
+	'src/glasscoder/fileconveyor.cpp' and 'src/glasscoder/fileconveyor.h'.
+2015-09-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added a glassgui(1) man page.
+	* Added a '--list-instances' option to glassgui(1).
+	* Added a '--delete-instance' options to glassgui(1).
+2015-09-25 Fred Gleason <fredg@paravelsystems.com>
+	* Optimized 'FileConveyor::push()' to unlink stale target files before
+	attempting to link a new one.
+2015-10-08 Fred Gleason <fredg@paravelsystems.com>
+	* Rewrote glasscoder(1) and glassgui(1) man pages in XML-DocBook 5.
+2015-10-09 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked markup glasscoder(1) and glassgui(1) man pages.
+2015-10-09 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.6.
+2015-10-13 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented support for HE-AAC+ using fdk-aac in
+	'src/glasscoder/fdkcodec.cpp' and 'src/glasscoder/fdkcodec.h'.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added an '--autostart' switch to glassgui(1) in
+	'src/glassgui/glassgui.cpp' and 'src/glassgui/glassgui.h'.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added a psuedo-random name element to the media segment filenames
+	in 'src/glasscoder/hlsconnector.cpp' and
+	'src/glasscoder/hlsconnector.h'.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'src/glasscoder/heaaccodec.cpp' and
+	'src/glasscoder/heaaccodec.h'.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.9.7.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'src/glasscoder.fdkcodec.cpp' that caused
+	HeAAC encoding to be listed unavailable unless the AACPlus library
+	was installed.
+2015-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.8.
+2015-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a positioning error in the status widget in
+	'src/glassgui/glassgui.cpp'.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/fdkcodec.cpp' and
+	'src/glasscoder/fdkcodec.h' that broke compilation when
+	the FDK-AAC library was not present.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a FILE server type.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored option-processing to utilize the
+	'Connector::optionKeyword()' method in 'src/glasscoder/glasscoder.cpp'.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored option-processing to utilize the
+	'Codec::optionKeyword()' method in 'src/glasscoder/glasscoder.cpp'.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a FILEARCHIVE server type.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/fileconnector.cpp' that broke
+	compilation under RHEL 7.
+2015-11-21 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.9.
+2015-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a PCM16 (little endian) codec in
+	'src/glasscoder/pcm16codec.cpp' and 'src/glasscoder/pcm16codec.h'.
+	* Modified the FILE server driver in 'src/glasscoder/fileconnector.cpp'
+	and 'src/glasscoder/fileconnector.h' to use a WAV file container
+	when streaming PCM16 data.
+	* Modified the FILEARCHIVE server driver in
+	'src/glasscoder/filearchiveconnector.cpp'
+	and 'src/glasscoder/filearchiveconnector.h' to use a WAV file container
+	when streaming PCM16 data.
+2015-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glassgui/codecdialog.cpp' that enabled
+	bitrate settings for the PCM16 codec.
+2015-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Modified PCM16 codec to use big-endian encoding.
+2015-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Update error reporting in 'src/glasscoder/asihpisource.cpp'.
+2015-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 0.9.10.
+2015-11-24 Fred Gleason <fredg@paravelsystems.com>
+	* Removed FLOAT support from the ALSA driver in
+	'src/glasscoder/alsadevice.cpp'.
+2015-11-24 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 0.9.11.
+2015-12-08 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the HLS version value to '3' in
+	'src/glasscoder/hlsconnector.h'.
+2015-12-08 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 0.9.12.
+2015-12-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a HLS_OMIT_ID3_TIMESTAMPS define in
+	'src/glasscoder/hlsconnector.cpp' to allow supression of ID3 PRIV
+	timestamp in media segments.
+2015-12-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/aaccodec.cpp' where an incomplete
+	ObjectTypeIndication (OTI) was being emitted by the
+	'AacCodec::formatIdentifier()' method.
+	* Fixed a bug in 'src/glasscoder/fdkcodec.cpp' where an incomplete
+	ObjectTypeIndication (OTI) was being emitted by the
+	'FdkCodec::formatIdentifier()' method.
+	* Fixed a bug in 'src/glasscoder/mpegl2codec.cpp' where an incomplete
+	ObjectTypeIndication (OTI) was being emitted by the
+	'MpegL2Codec::formatIdentifier()' method.
+	* Fixed a bug in 'src/glasscoder/mpegl3codec.cpp' where an incomplete
+	ObjectTypeIndication (OTI) was being emitted by the
+	'MpegL3Codec::formatIdentifier()' method.
+	* Removed generation of the '#EXT-X-VERSION' tag for master index
+	files in 'src/glasscoder/hlsconnector.cpp'.
+2015-12-09 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 0.9.13.
+2015-12-17 Fred Gleason <fredg@paravelsystems.com>
+	* Commented out the HLS_OMIT_ID3_TIMESTAMPS define in
+	'src/glasscoder/hlsconnector.h'.
+2015-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.14.
+2016-01-04 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the #EXT-X-PROGRAM-DATE-TIME tag for HLS streams
+	in 'src/glasscoder/hlsconnector.cpp' and
+	'src/glasscoder/hlsconnector.h'.
+	* Added a '--stream-timestamp-offset=' switch to glasscoder(1).
+2016-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an '--audio-atomic-frames' option to glasscoder(1).
+2016-02-16 Fred Gleason <fredg@paravelsystems.com>
+	* Merged changes from Sascha Ludwig [saschaludwig] to fix bug in
+	glassgui(1) when compiled without HPI support [GitHub pull request
+	#000002].
+2016-02-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/common/connector.cpp' that caused the
+	script specified by --server-script-down to fail to be executed
+	during a normal shutdown.
+2016-02-16 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.9.15.
+2016-04-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added rules to build an HTML version of the docs.
+2016-09-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an '--errors-string' switch to glasscoder(1).
+2016-09-13 Fred Gleason <fredg@paravelsystems.com>
+	* Modified glassgui(1) to use the --instance-name value for logging.
+	* Fixed a bug in 'src/glasscoder/asihpidevice.cpp' that returned
+	an error when passed negative values for '--asihpi-input-gain'.
+2016-09-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Config' class in 'src/glasscoder/config.cpp' and
+	'src/glasscoder/config.h'.
+	* Added a '--metadata-port' option to glasscoder(1).
+	* Added a WebHost library dependency.
+	* Added an overloaded 'FileConveyor::push()' method in
+	'glasscoder/fileconveyor.cpp' and 'glasscoder/fileconveyor.h'.
+	* Implemented metadata updates for Icecast2.
+2016-09-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'FileConveyor::setAddedHeaders()' method in
+	'glasscoder/fileconveyor.cpp' and 'glasscoder/fileconveyor.h'.
+	* Implemented metadata updates for Shoutcast1.
+2016-09-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Local Metadata Port' control to the Server Settings
+	dialog in 'src/glassgui/serversettings.cpp' and
+	'src/glassgui/serversettings.h'.
+2016-09-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Stream Metadata' control to the glassgui(1) main
+	window in 'src/glassgui/glassgui.cpp' and
+	'src/glassgui/glassgui.h'.
+	* Implemented a send metadata command via standard input for
+	glasscoder(1) in 'src/glasscoder/glasscoder.cpp' and
+	'src/glasscoder/glasscoder.h'.
+2016-09-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added a glasscoder-ipc(7) man page.
+2016-09-16 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.9.16.
+2016-11-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/glasscoder.cpp' that caused a spurious
+	'metadataReceived' error to be generated when starting a connection
+	with no metadata port.
+2016-11-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'IcecastStreamerServer' connector in
+	'src/glasscoder/icestreamconnector.cpp' and
+	'src/glasscoder/icestreamconnector.h'.
+2016-11-08 Fred Gleason <fredg@paravelsystems.com>
+	* Documented the 'IcecastStreamer' server type in the glasscoder(1)
+	man page.
+2016-11-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to the 'Server Settings' dialog to disable irrelevant
+	fields when using the IceStreamer server.
+2016-11-08 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented stream metadata updates for the 'IceStreamer' server
+	type in 'src/glasscoder/icestreamconnector.cpp' and
+	'src/glasscoder/icestreamconnector.h'.
+2016-11-08 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented an idle connection timeout for the 'IceStreamer' server
+	type in 'src/glasscoder/icestreamconnector.cpp' and
+	'src/glasscoder/icestreamconnector.h'.
+2016-11-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Connector::serverBasicAuthString()' method in
+	'src/common/connector.cpp' and 'src/common/connector.h'.
+	* Implemented the 'mount' administrative interface in the IceStreamer
+	server type in 'src/glasscoder/icestreamconnector.cpp' and
+	'src/glasscoder/icestreamconnector.h'.
+2016-11-09 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the glasscoder(1) man page.
+	* Enabled the 'Username' and 'Password fields in the 'Server Settings'
+	dialog for the 'IceStreamer' server type.
+2016-11-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/icestreamconnector.cpp' and
+	'src/glasscoder/icestreamconnector.h' that threw a segfault when
+	stopping with active client connections.
+2016-11-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a pipe_connect(1) test harness in 'src/tests/'.
+	* Added a '--server-pipe=' parameter to glasscoder(1).
+2016-11-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--server-exit-on-last' parameter to glasscoder(1).
+2016-11-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'iceout' server connector in
+	 'src/glasscoder/iceoutconnector.cpp' and
+	 'src/glasscoder/iceoutconnector.h'.
+2016-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Removed HTTP negotiation parameters from the Icecast headers of
+	the 'IceOut' server type in 'src/glasscoder/iceoutconnector.cpp'.
+2016-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--server-max-connections' parameter to glasscoder(1).
+	* Added a 'Max Player Connections' control to the Server Settings
+	dialog in 'src/glasscoder/serverdialog.cpp' and
+	'src/glasscoder/serverdialog.h'.
+2016-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Relaxed the requirement that a --server-url parameter always be
+	provided for the IceStreamer server.
+2016-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.17.
+2016-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--server-start-connections=' parameter to
+	glasscoder(1).
+2016-11-16 Fred Gleason <fredg@paravelsystems.com>
+	* Moved dialog elementsfrom 'src/glassgui/' into 'src/common/'.
+2016-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added a glasscommander(1) application in 'src/glasscommander/'.
+2016-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Add', 'Remove' and 'Abandon' buttons for managing instances
+	in glasscommander(1).
+2016-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Start All' and 'Stop All' buttons to glasscommander(1).
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a check for proper stream shutdown when exiting
+	glasscommander(1).
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Pick Instance' dialog for glasscommander(1) in
+	'src/glasscommander/instancedialog.cpp' and
+	'src/glasscommander/instancedialog.h'.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'FilenameValidator' class in
+	'src/glasscommander/filenamevalidator.cpp' and
+	'src/glasscommander/filenamevalidator.h'.
+	* Added code to check for duplicate/invalid instance names in
+	'src/glasscommander/instancedialog.cpp' and
+	'src/glasscommander/instancedialog.h'.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to select an item in the 'Pick Instance' dialog when
+	its name is keyed into the 'Instance' control.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Remove Instance' dialog in
+	'src/glasscommander/deletedialog.cpp' and
+	'src/glasscommander/deletedialog.h'.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Start this instance at application launch' control
+	to the Settings dialog in 'src/glasscommander/configdialog.cpp'
+	and 'src/glasscommander/configdialog.h'.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a glasscommander(1) man page.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added glasscommander(1) to 'glasscoder.spec.in'.
+2016-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.18.
+2016-11-22 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented staggered startup in glasscommander(1).
+2016-11-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/icestreamconnector.cpp' that caused
+	incorrect an date-time header to be emitted for timezones other than
+	UTC+0400.
+2016-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--server-user-agent' option to glasscoder(1).
+2016-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in 'docs/glasscoder.xml.in'.
+2016-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/common/serverdialog.cpp' that caused the
+	'Max Player Connections' spin box to default to '0' instead of
+	'unlimited'.
+2016-11-23 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the player version to 0.9.19.
+2016-11-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a codec for OggOpus in 'src/glasscoder/opuscodec.cpp' and
+	'src/glasscoder/opuscodec.h'.
+2016-11-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a compile-time define for encoder complexity in
+	'src/glasscoder/opuscodec.cpp' and 'src/glasscoder/opuscodec.h'.
+2016-11-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added configuration values for the Opus codec in
+	'src/glassgui/codecdialog.cpp'.
+2016-12-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed typo in vendor string in 'src/glasscoder/opuscodec.cpp'.
+2016-12-01 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Enabled 'Opus' and 'Vorbis' codec types to work with IceStreamer
+	server.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a memory leak in 'src/glasscommander/playmeter.cpp'.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'src/glasscoder/opuscodec.cpp' that broke compilation
+	when building without Opus support.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Altered dynamic library targets to include major version numbers.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Removed MPEG-2/AAC support.
+2016-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.20.
+2016-12-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a termination timeout to glasscommander(1) in
+	'src/glasscommander/glasswidget.cpp' and
+	'src/glasscommander/glasswidget.h'.
+2016-12-05 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.21.
+2018-03-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for DMA bus-mastering to the ASIHPI driver.
+2018-03-20 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 0.9.22.
+2019-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug that caused double-escaped metadata strings to be
+	sent to	IceCast and Shoutcast servers.
+2019-08-01 Fred Gleason <fredg@paravelsystems.com>
+	* Added the ability to the Shoutcast connector to utilize a
+	username in addition to a password to authenticate connections.
+2019-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--jack-gain=' directive to glasscoder(1).
+	* Added a 'Gain' control for JACK to the 'Audio Sources' dialog
+	in glassgui(1).
+2019-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the example environment for RHEL 5 from 'INSTALL'.
+2019-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.9.23.
+2019-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Updated Qt4 to Qt5.
+2019-09-11 Fred Gleason <fredg@paravelsystems.com>
+	* Swallowed the 'WHHttpServer' class and dependent classes
+	from 'webhost'.
+	* Removed the 'webhost' dependency.
+	* Added an 'OpenSSL' dependency.
+2019-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+2019-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glassgui(1) that caused meters
+	to be rendered incorrectly.
+2019-09-16 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the 'MetaEvent' class to operate with arbitrary
+	field keys.
+	* Added a mandatory dependency for TagLib.
+	* Added a 'json-pad' web service.
+2019-09-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'pypad_glasscoder.py' PyPAD script.
+	* Added a 'AX_COUNT_CPUS()' autoconf macro.
+	* Modified the 'make rpm' target to use one less than the total
+	available CPU cores.
+2019-09-17 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'INSTALL'.
+2019-09-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glassgui(1) that caused instances names to be
+	truncated when using the '--list-instances' option.
+2019-09-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for HLS timed metadata.
+2019-10-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscoder(1) that could cause extremely long shutdown
+	times when generating HLS streams.
+2019-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added support to glasscoder(1) for streaming HLS via the 'FILE'
+	scheme.
+2019-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added support to glasscoder(1) for streaming HLS via the 'SFTP'
+	scheme using passwords.
+2019-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscoder(1) that caused a 'Resource not found'
+	CURL error to be generated when streaming HLS via SFTP.
+2019-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) that caused XCast metadata
+	updates to be improperly escaped.
+2019-10-17 Fred Gleason <fredg@paravelsystems.com>
+	* Modified segment tracking in the HLS connector so as to update
+	the list of current PUTted files only after receiving confirmation
+	of success from curl(1).
+2019-10-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Supported URL Schemes' section to the glasscoder(1)
+	man page.
+2019-10-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for the 'StreamUrl' metadata field on ShoutCast
+	servers.
+2019-10-18 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'METADATA' section to the glasscoder(1) man page.
+2019-10-31 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.10.0.
+2020-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Updated glasscoder(1) to work properly with FDK-AACv2.
+2020-01-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in the 'Connector::urlDecode()' method that caused
+	incorrect results when processing multi-byte UTF-8 characters.
+	* Added a 'urldecode' test harness.
+	* Fixed a bug in the 'Connector::urlEncode()' method that caused
+	incorrect results when processing multi-byte UTF-8 characters.
+	* Added a 'urlencode' test harness.
+2020-01-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a double-decode bug when processing IceCast-style metadata
+	updates in glasscoder(1).
+2020-01-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a double-decode bug when processing ShoutCast-style metadata
+	updates in glasscoder(1).
+2020-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--dump-headers' switch to glasscoder(1).
+	* Added a '--dump-headers' switch to glasscommander(1).
+	* Implemented the '--dump-headers' swich for the IceCast2 server type.
+2020-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscoder(1) where the script specified in the
+	'--server-script-down' switch would fail to be executed during
+	shutdown.
+2020-01-23 Gabriele Fergola <workino@gmail.com>
+	* Corrected the exception on utf8 characters movin pypad_glasscoder.py
+	  from pycurl to requests.
+	* Rewrote the json loop in pypad_glasscoder.py
+	* Increased debug in pypad_glasscoder.py
+	* Added [PyPAD][Glasscoder] Tags to better recognize in syslog/messages
+2020-01-23 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'python36' dependency from the 'glasscoder' RPM package.
+	* Added 'python36' and 'python36-requests' dependencies to the
+	'glasscoder-pypad' RPM package.
+	* Updated 'INSTALL'.
+2020-01-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'CODINGSTYLE' file.
+2020-01-24 Fred Gleason <fredg@paravelsystems.com>
+	* Switched from MM/DD/YYYY to DD MMM YYYY date formats in 'NEWS'.
+2020-01-24 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 1.0.0.
+2020-01-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added OpenSSL use notice to 'README.
+	* Added GPLv2 exception for linking to OpenSSL to 'README'.
+2020-01-27 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the description of glassgui(1) in 'README'.
+	* Added a description of glasscommander(1) in 'README'.
+2020-06-01 Fred Gleason <fredg@paravelsystems.com>
+	* Added a static 'Connector::socketErrorText()' method.
+	* Fixed a regression in glasscoder(1) that caused automatic
+	reconnection to IceCast servers to fail.
+2020-06-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) that caused automatic
+	reconnection to ShoutCast servers to fail.
+2020-06-01 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Connection Starting...' and 'Connection Stopping...'
+	status messages to glassgui(1) and glasscommander(1).
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added a check for LibCURL to 'configure.ac'.
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up strncpy(3) warnings in glasscoder(1).
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up strncpy(3) warnings in 'tests/pipeconnect.cpp'.
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up QFontMetrics warnings in glassgui(1).
+	* Cleaned up QFontMetrics warnings in glasscommander(1).
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Reverted the QFontMetrics warning cleanup in glassgui(1).
+	* Reverted up QFontMetrics warning cleanups in glasscommander(1).
+2020-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 1.0.1.
+2021-05-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed build warnings in glasscoder(1).
+2021-05-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'make deb' target.
+2021-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Updated dependency information for the DEB packages.
+2021-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in 'debian/control'.
+2021-08-16 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 1.0.2.
+2022-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the PyPAD plug-in to support Rivendell v4.x.
+2022-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the 'make deb' target to generate Debian installation
+	metadata automatically.
+2022-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Commented out the HLS Timed Metadata example in the PyPAD plug-in
+	exemplar.
+2022-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 1.0.3.
+2022-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'glasscoder.spec.in' that broke the 'make rpm'
+	target on RHEL 8.
+2022-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the byte compiled binary from the PyPAD plug-in from
+	the 'glasscoder-pypad package under RHEL 8.
+2022-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 1.0.4.
+2022-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added a glassconv(1) program in 'src/glasscoder/'.
+2022-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'NetConveyor' class in 'src/glasscoder/'.
+2022-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored HLS support to use glassconv(1).
+2022-01-31 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'FileConveyor' class to 'GetConveyor' and removed
+	vestigal file transfer functionality.
+2022-01-31 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glassconv(1) that caused publishing HLS
+	to a FILE: scheme to fail.
+2022-01-31 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glassconv(1) that caused publishing HLS
+	to a SFTP: scheme to fail.
+2022-01-31 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--credentials-file' option to glasscoder(1).
+	* Added a '--delete-credentials' option to glasscoder(1).
+	* Deprecated the --server-auth' option in glasscoder(1).
+2022-02-01 Fred Gleason <fredg@paravelsystems.com>
+	* Modified glassgui(1) to use the '--credentials-file' option when
+	starting glasscoder(1).
+	* Modified glasscommander(1) to use the '--credentials-file' option
+	when starting glasscoder(1).
+2022-02-01 Fred Gleason <fredg@paravelsystems.com>
+	* Modified glassgui(1) to use the '--ssh-identity' option when
+	starting glasscoder(1).
+	* Modified glasscommander(1) to use the '--ssh-identity' option when
+	starting glasscoder(1).
+2022-02-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscommander(1) that caused dialog titlebars to
+	display their parent as 'GlassGui'.
+2022-02-01 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in glasscommander(1) that caused the strip insertion
+	icons on the toolbar to be enabled incorrectly.
+2022-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) when generating HLS streams
+	that caused posting errors to fail to be reported to the logging
+	system.
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the 'Supported URL Schemes' section of the glasscoder(1)
+	man page.
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--server-no-deletes' option to glasscoder(1).
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Show Code' button to the configuration dialog in
+	glasscommander(1).
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscoder(1) that caused excess media segment
+	files to be retained on an HLS publishing point.
+	* Fixed a bug in glasscoder(1) that caused superfluous DELETE
+	requested to be generated when shutting down an HLS stream.
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Purge stale files on publishing point' checkbox to
+	the 'Server Settings' dialog in glassgui(1) and glasscommander(1).
+2022-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Modified glassgui(1) and glasscommander(1) to obfuscate server
+	credentials within instance data files.
+	* Modified glassgui(1) and glasscommander(1) to use mode 0700 for
+	the '~/.glassgui' directory.
+	* Modified glassgui(1) and glasscommander to use mode 0600 for
+	instance data files.
+2022-03-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) that caused stale media
+	segments to fail to be removed from the index file when using
+	HLS with the '--server-no-deletes' switch.
+2022-03-10 Fred Gleason <fredg@paravelsystems.com>
+	* Removed support for multi-rate HLS streams from glasscoder(1).
+2022-03-10 Fred Gleason <fredg@paravelsystems.com>
+	* Removed support for multi-rate HLS streams from glassgui(1) and
+	glasscommander(1).
+2022-03-11 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected a typo in the entry for '--server-no-deletes' in the
+	glasscoder(1) man page.
+2022-03-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a 'no such slot' error generated by glasscommander(1) at
+	startup.
+2022-03-12 Fred Gleason <fredg@paravelsystems.com>
+	* Modified glassconv(1) to log all messages to syslog(3).
+2022-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glassconv(1) that caused lockups due to exhaustion
+	of available file handles.
+2022-03-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug that broke the 'make rpm' target.
+2022-03-17 Fred Gleason <fredg@paravelsystems.com>
+	* Tightened the 'glasscoder' dependency for the 'glasscoder-gui'
+	RPM sub-package to require matching versions.
+2022-03-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added glassconv(1) to the 'glasscoder' Deb package.
+2022-03-17 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the 'glasscoder' dependency from the 'glasscoder-pypad'
+	Deb package.
+2022-03-17 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 2.0.0rc0.
+2022-05-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in glasscommander(1) that could cause the startup of
+	encoder instances to fail with a 'Unable to create credential file'
+	error message.
+2022-05-03 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 2.0.0rc1.
+2022-05-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) that caused the value of the
+	'#EXTINF' tags to always be '0.00000' in HLS streams.
+2022-05-04 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 2.0.0rc2.
+2022-05-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in glasscoder(1) when configured to emit
+	HLS that caused the '#EXT-X-PROGRAM-DATE-TIME' tag to get an invalid
+	value when the '--server-no-deletes' flag was given.
+2022-05-24 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 2.0.0rc3.
+2022-06-25 Fred Gleason <fredg@paravelsystems.com>
+	* Updated the package version to 2.0.1.
+2022-10-23 Patrick Linstruth <patrick@deltecent.com>
+	* Updated glasscoder(1) and glassgui(1) to support higher AAC
+	bitrates.

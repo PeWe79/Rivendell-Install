@@ -1,0 +1,17 @@
+glasscoder \
+--server-type=shout2 \
+--server-url=https://shoutcastserver:port \
+--server-auth=user:password \
+--server-script-down="Disconnect" \
+--server-script-up="Connected" \
+--verbose \
+--audio-format=aacp \
+--audio-samplerate=44100 \
+--audio-channels=2 \
+--audio-bitrate=128 \
+--stream-name="Top40" \
+--stream-genre="Top40" \
+--audio-device=jack \
+--jack-server-name="Cloudmu" \
+--jack-client-name="Cloudmu" \
+--jack-gain=5

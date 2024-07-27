@@ -1,0 +1,1701 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<refentry id="stdin" xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <!--
+      Header
+  -->
+  <refmeta>
+    <refentrytitle>glasscoder</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class='source'>February 2022</refmiscinfo>
+    <refmiscinfo class='manual'>Linux Audio Manual</refmiscinfo>
+  </refmeta>
+  <refnamediv>
+    <refname>glasscoder</refname>
+    <refpurpose>Minimalist audio encoder for live streaming</refpurpose>
+  </refnamediv>
+  <info>
+    <author>
+      <personname>
+	<firstname>Fred</firstname>
+	<surname>Gleason</surname>
+	<email>fredg@paravelsystems.com</email>
+      </personname>
+      <contrib>Application Author</contrib>
+    </author>
+  </info>
+
+  <!--
+      Body
+  -->
+  <refsynopsisdiv id='synopsis'>
+    <cmdsynopsis>
+      <command>glasscoder</command>
+      <arg choice='opt'><replaceable>OPTIONS</replaceable></arg>
+      <sbr/>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id='description'><title>Description</title>
+  <para>
+    <command>glasscoder</command><manvolnum>1</manvolnum> is an audio encoder
+    that is capable of generating live streams using a variety of formats and
+    sending them to an Icecast or Shoutcast audio streaming server or posting
+    them as HTTP Live Streams [HLS]. It is also capable of acting as an
+    Icecast-compatible server in its own right, serving streams directly to
+    client players and thus eliminating the need for an intervening Icecast
+    server instance.
+  </para>
+
+  <para>
+    <command>glasscoder</command><manvolnum>1</manvolnum> has no GUI or
+    configuration file components at all; its sole 'user interface' being its
+    command-line invocation. As such, it is particularly well suited for
+    being driven by an external process or controller such as
+    <command>glassgui</command><manvolnum>1</manvolnum> or
+    <command>glasscommander</command><manvolnum>1</manvolnum>.
+  </para>
+  </refsect1>
+
+  <refsect1 id='options'><title>Options</title>
+  <variablelist remap='TP'>
+    <varlistentry>
+      <term>
+	<option>--audio-atomic-frames</option>
+      </term>
+      <listitem>
+	<para>
+	  Emit a stream consisting of self-contained frames --e.g. by
+	  disabling the MPEG-1 bit reservoir.  Useful mostly for debugging.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-bitrate=</option><replaceable>kbps</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The constant stream data rate in kilobits per second.  Default value
+	  is <userinput>128</userinput>. Use of this option is mutually
+	  exclusive with that of the <option>--audio-quality</option> option
+	  (see below).
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-channels=</option><replaceable>chans</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The number of audio channels to use.  Valid values are 
+	  <userinput>1</userinput> or <userinput>2</userinput>.
+	  Default value is <userinput>2</userinput>.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-device=</option><replaceable>type</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The type of audio device to use.  The default value is
+	  <userinput>JACK</userinput>. See the
+	  <emphasis remap='B'>DEVICE OPTIONS</emphasis> section (below) for
+	  the options appropriate for each audio device type.  Valid values
+	  are:
+	</para>
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>ALSA</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  The Advanced Linux Sound Architecture.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>ASIHPI</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  AudioScience HPI.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>FILE</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Stream directly from a file.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>JACK</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  The Jack Audio Connection Kit.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-format=</option><replaceable>fmt</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The audio encoding format to use.  The default value is
+	  <userinput>VORBIS</userinput>.  Valid	<replaceable>fmt</replaceable>
+	  values are:
+	</para>
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>AACP</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  MPEG-4 Advanced Audio Coding &quot;Plus&quot; (High Efficiency Profile)
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>MP2</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  MPEG-1/1.5 Layer 2
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>MP3</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  MPEG-1/1.5 Layer 3
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>OPUS</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Ogg Opus (RFC-6716)
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>PCM16</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  PCM16 Uncompressed
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+	    <varlistentry>
+	      <term>
+		<userinput>VORBIS</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Ogg Vorbis
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote> <!-- remap='RE' -->
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-quality=</option><replaceable>qual</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Use variable bitrate streaming at the given audio quality.
+	  <replaceable>qual</replaceable> can be in the range
+	  <userinput>0.0</userinput> (lowest quality) to
+	  <userinput>1.0</userinput> (highest). Use of this option is mutually
+	  exclusive with that of the <option>--audio-bitrate</option> option
+	  (see above).
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--audio-samplerate=</option><replaceable>rate</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The audio sample rate to use for streaming.  If the underlying
+	  audio layer is operating at a different sample rate, the input will
+	  be automatically resampled to this rate.
+	  Default value is <userinput>44100</userinput>.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--credentials-file=</option><replaceable>filename</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Get the credentials for connecting to the server in the
+	  <replaceable>filename</replaceable> file. The contents of the file
+	  should be formatted as follows:
+	  <literallayout>
+[Credentials]
+Username=&lt;username&gt;
+Password=&lt;password&gt;
+          </literallayout>
+	</para>
+	<para>
+	  When using the <option>--ssh-identity</option> option, the
+	  passphrase for the specified identity file should be used as the
+	  password value.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--delete-credentials</option>
+      </term>
+      <listitem>
+	<para>
+	  Delete the file specified by <option>--credentials-file</option>
+	  after being read.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--errors-string=</option><replaceable>string</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Prepend <replaceable>string</replaceable> to messages sent to the
+	  <command>syslog</command> service (see the 
+	  <option>--errors-to</option> option, below). Useful for
+	  disambiguating messages from multiple
+	  <command>glasscoder</command><manvolnum>1</manvolnum> instances.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--errors-to=</option><replaceable>dest</replaceable>
+      </term>
+    <listitem>
+      <para>
+	Send error messages to <replaceable>dest</replaceable> (default
+	standard error). Valid destinations are:
+      </para>
+      <blockquote remap='RS'>
+	<variablelist remap='TP'>
+	  <varlistentry>
+	    <term>
+	      <userinput>STDERR</userinput>
+	    </term>
+	    <listitem>
+	      <para>
+		Standard error.
+	      </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+      </blockquote>
+      <blockquote remap='RS'>
+      <variablelist remap='TP'>
+	<varlistentry>
+	  <term>
+	    <userinput>SYSLOG</userinput>
+	  </term>
+	  <listitem>
+	    <para>
+	      The system syslog service.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+      </blockquote>
+      <blockquote remap='RS'>
+      <variablelist remap='TP'>
+	<varlistentry>
+	  <term>
+	    <userinput>STDOUT</userinput>
+	  </term>
+	  <listitem>
+	    <para>
+	      Standard output,in machine readable format (useful for
+	      communication with another 'controller' program).  See also the
+	      <option>--meter-data</option> option below.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+      </blockquote>
+    </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--help</option>
+      </term>
+      <listitem>
+	<para>
+	  Print a short usage message and exit.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--list-codecs</option>
+      </term>
+      <listitem>
+	<para>
+	  Print a list of available codecs and then exit.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--list-devices</option>
+      </term>
+      <listitem>
+	<para>
+	  Print a list of available source devices and then exit.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--metadata-port=</option><replaceable>port</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Accept metadata updates via HTTP at port
+	  <replaceable>port</replaceable>. Default value is
+	  <userinput>0</userinput>, which disables metadata updates.
+	  See the METADATA section (below) for information regarding the
+	  supported update formats.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--meter-data</option>
+      </term>
+      <listitem>
+	<para>
+	  Output meter level updates on standard output.  Useful for
+	  driving an external metering display.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-auth=</option>[<replaceable>username</replaceable>][<option>:</option><replaceable>password</replaceable>] (DEPRECATED)
+      </term>
+      <listitem>
+	<para>
+	  The authentication parameters to use. This parameter has no default.
+	</para>
+	<para>
+	  NEVER USE THIS OPTION! It allows credentials to
+	  be seen by other users on the system. Use the
+	  <option>--credentials-file</option> option to specify server
+	  credentials instead.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-exit-on-last</option>
+      </term>
+      <listitem>
+	<para>
+	  Exit the program upon closure of the last player connection. This
+	  setting is used only by the IceStreamer server.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-max-connections=</option><replaceable>conns</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Allow a maximum of <replaceable>conns</replaceable> simultaneous
+	  player connections. Players beyond this maximum attempting to
+	  connect will receive an immediate TCP disconnect before the HTTP
+	  handshake. This setting is used only by the IceStreamer server.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-no-deletes</option>
+      </term>
+      <listitem>
+	<para>
+	  Do not clean up or delete content previously posted to the
+	  publishing point. This setting is used only by the HLS
+	  server type.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-pipe=</option><replaceable>pathname</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Location to create a UNIX socket for piping connection
+	  socket descriptors. Useful for implementing proxy connectors for the
+	  IceStreamer server. For further details about this feature, see the
+	  Proxy Connections section of the
+	  <command>glasscoder-ipc</command><manvolnum>7</manvolnum> man page.
+	  The default is to create no UNIX socket. This setting is used only
+	  by the IceStreamer server. 
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-script-down=</option><replaceable>cmd</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Run the command <replaceable>cmd</replaceable> when the connection
+	  enters the
+	  <computeroutput>disconnected</computeroutput> state.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-script-up=</option><replaceable>cmd</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Run the command <replaceable>cmd</replaceable> when the connection
+	  enters the <computeroutput>connected</computeroutput> state.
+	</para>	
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-start-connections=</option><replaceable>conns</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  Do not start the audio transport until at least
+	  <replaceable>conns</replaceable> connections have been established.
+	  Used only by the IceStreamer server in conjunction with the
+	  <userinput>FILE</userinput> audio device. Default value is
+	  <userinput>0</userinput> --i.e. start the transport immediately.
+	</para>	
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+      <option>--server-type=</option><replaceable>type</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The type of streaming server to use (default is
+	  <userinput>Icecast2</userinput>). Valid values for
+	  <replaceable>type</replaceable> are:
+	</para>
+	<blockquote remap='RS'>
+	  <variablelist remap='TP'>
+
+	    <varlistentry>
+	      <term>
+		<userinput>FILE</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Local file
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>FILEARCHIVE</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Local file archive.  Stream to a set of files on the local
+		  system, starting a new file at the beginning of each hour.
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>HLS</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  HLS/HTTP Live Streaming
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>IceCast2</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  IceCast v2
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>IceOut</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Output an Icecast-compatible stream on standard output.
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>IceStreamer</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Stream directly to players using the internal
+		  Icecast-compatible server.
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>Shout1</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Shoutcast v1
+		</para>
+	      </listitem>
+	    </varlistentry>
+
+	    <varlistentry>
+	      <term>
+		<userinput>Shout2</userinput>
+	      </term>
+	      <listitem>
+		<para>
+		  Shoutcast v2
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	</blockquote>
+      </listitem>
+    </varlistentry>
+    
+    <varlistentry>
+      <term>
+	<option>--server-url=</option><replaceable>url</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The URL describing the server resource to stream to. See the
+	  SUPPORTED URL SCHEMES section (below) for a list of what URL
+	  schemes are appropriate for which server types.
+	</para>
+	<para>
+	  When used with a <option>--server-type</option> of
+	  <userinput>IceStreamer</userinput>, the host part of the URL
+	  is used to specify the address of the network interface to
+	  use for streaming (use <userinput>0.0.0.0</userinput> to indicate
+	  ALL interfaces). This parameter has no default.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--server-user-agent=</option><replaceable>agent-string</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The <computeroutput>User-Agent</computeroutput> header value to
+	  use when connecting to external servers. Default value is
+	  <userinput>GlassCoder/@VERSION@</userinput>. This setting
+	  is used only by <userinput>IceCast2</userinput> and
+	  <userinput>HLS</userinput> servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--ssh-identity=</option><replaceable>filename</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The path to the file containing an ssh(1) identity to use when
+	  connecting via SFTP. When using this option, the passphrase for
+	  the identity file should be provided as the server password. See
+	  the <option>--credentials-file</option> option for details.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-aim=</option><replaceable>aim</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The AOL Instant Messenger ID to associate with the stream.  There is
+	  no default value.  This setting is used only by Shoutcast servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-description=</option><replaceable>string</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The string to show as the stream description.  There is no default
+	  value. This setting is used only by Icecast servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-genre=</option><replaceable>string</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The string to show as the stream genre.  There is no default value.
+	  This setting is used only by Icecast and Shoutcast servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-icq=</option><replaceable>icq</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The ICQ ID to associate with the stream.  There is no default value.
+	  This setting is used only by Shoutcast servers.
+	</para>	
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-irc=</option><replaceable>irc</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The Internet Relay Chat ID to associate with the stream.  There is no
+	  default value.  This setting is used only by Shoutcast servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-name=</option><replaceable>string</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The string to show as the stream name.  There is no default value.
+	  This setting is used only by Icecast and Shoutcast servers.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-timestamp-offset=</option><replaceable>offset</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The offset to add to the value of stream timestamps, in seconds.
+	  Default value is <userinput>0</userinput>.  This setting is used
+	  only for HLS streams.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--stream-url=</option><replaceable>url</replaceable>
+      </term>
+      <listitem>
+	<para>
+	  The URL to show for a page giving more information about the stream.
+	  There is no default value.  This setting is used only by Icecast and
+	  Shoutcast servers, but is ignored by Shoutcast v2 servers.
+	</para>	
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--verbose</option>
+      </term>
+      <listitem>
+	<para>
+	  Increase verbosity level of information printed to standard error.
+	  WARNING: this may cause cleartext passwords to printed!
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+	<option>--version</option>
+      </term>
+      <listitem>
+	<para>
+	  Output version information and exit.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</refsect1>
+
+<refsect1 id='device_options'><title>Device Options</title>
+<variablelist remap='TP'>
+  <varlistentry>
+    <term>
+      <emphasis remap='B'>Advanced Linux Sound Architecture</emphasis> 
+      (<option>--audio-device=</option><userinput>ALSA</userinput>)
+    </term>    
+    <listitem>
+      <variablelist>
+	<varlistentry>
+	  <term>
+	    <option>--alsa-device=</option><replaceable>dev</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The name of the ALSA device to use.  If no
+	      <option>--audio-device</option> option is given,
+	      then the <userinput>hw:0</userinput> device will be used.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>
+      <emphasis remap='B'>AudioScience HPI</emphasis> 
+      (<option>--audio-device=</option><userinput>=ASIHPI</userinput>)
+    </term>
+    <listitem>
+      <variablelist>
+	<varlistentry>
+	  <term>
+	    <option>--asihpi-adapter-index=</option><replaceable>index</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The index number of the audio adapter to use.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--asihpi-input-index=</option><replaceable>index</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The number of the input audio stream to use on the specified adapter.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--asihpi-input-gain=</option><replaceable>gain</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The gain to apply to the input audio on the specified adapter in
+	      dB. Valid values are <userinput>-100</userinput> to
+	      <userinput>+20</userinput> inclusive.  Default value is
+	      <userinput>0</userinput>.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--asihpi-channel_mode=</option><replaceable>mode</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The channel mode for the input audio on the specified adapter.
+	      The default value is <userinput>NORMAL</userinput>. Valid values
+	      are:
+	    </para>
+	    <blockquote remap='RS'>
+	      <variablelist remap='TP'>
+		<varlistentry>
+		  <term>
+		    <userinput>NORMAL</userinput>
+		  </term>
+		  <listitem>
+		    <para>
+		      Left signal goes to left channel, right signal goes to
+		      right channel.
+		    </para>
+		  </listitem>
+		</varlistentry>
+		<varlistentry>
+		  <term>
+		    <userinput>SWAP</userinput>
+		  </term>
+		  <listitem>
+		    <para>
+		    Left signal goes to right channel, right signal goes to
+		    left channel.
+		    </para>
+		  </listitem>
+		</varlistentry>
+		<varlistentry>
+		  <term>
+		    <userinput>LEFT</userinput>
+		  </term>
+		  <listitem>
+		    <para>
+		      Left signal goes to both left and right channels.
+		    </para>
+		  </listitem>
+		</varlistentry>
+		<varlistentry>
+		  <term>
+		    <userinput>RIGHT</userinput>
+		  </term>
+		  <listitem>
+		    <para>
+		      Right signal goes to both left and right channels.
+		    </para>
+		  </listitem>
+		</varlistentry>
+	      </variablelist>
+	    </blockquote> <!-- remap='RE' -->
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	  <option>--asihpi-input-source=</option><replaceable>src-node</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The input source to use on the specified adapter.  See the
+	      <emphasis remap='B'>HPI Source Nodes</emphasis> section below
+	      for the list of valid <replaceable>src-node</replaceable>
+	      values. The default value is <userinput>LINEIN</userinput>.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--asihpi-input-type=</option><replaceable>src-node</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The input type to use on the specified adapter.  See the
+	      <emphasis remap='B'>HPI Source Nodes</emphasis> section below
+	      for the list of valid <replaceable>src-node</replaceable>
+	      values. The default value is <userinput>LINEIN</userinput>.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <emphasis remap='B'>HPI Source Nodes</emphasis>
+	  </term>
+	  <listitem>
+	    <para>
+	      The following values can used for the
+	      <option>--asihpi-input-source</option> and
+	      <option>--asihpi-input-type</option> options above:
+	    </para>
+	    <variablelist remap='TP'>
+	      <varlistentry>
+		<term>
+		  <userinput>NONE</userinput>
+		</term>
+		<term>
+		  <userinput>OSTREAM</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Internal output stream
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>LINEIN</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Generic input signal
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>AESEBU</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    AES3 digital input
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>TUNER</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Tuner
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>RF</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    RF input
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>CLOCK</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Clock source
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>BITSTREAM</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Raw bitstream
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>MIC</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Microphone
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>COBRANET</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    CobraNet
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>ANALOG</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Analog input
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>ADAPTER</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Adapter
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>RTP</userinput>
+		</term>
+		<term>
+		  <userinput>INTERNAL</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    Device internal
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>
+		  <userinput>AVB</userinput>
+		</term>
+		<listitem>
+		  <para>
+		    AVB input
+		  </para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>      
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+
+
+  <varlistentry>
+    <term>
+      <emphasis remap='B'>Direct File Streaming</emphasis>
+      (<option>--audio-device=</option><userinput>FILE</userinput>)
+    </term>
+    <listitem>
+      <variablelist>
+	<varlistentry>
+	  <term>
+	    <option>--file-name=</option><replaceable>name</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The name of the file to stream.  If no
+	      <option>--file-name</option> option is given,
+	      then the name of the file will be read from standard input.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>
+      <emphasis remap='B'>The Jack Audio Connection Kit</emphasis>
+      (<option>--audio-device=</option><userinput>JACK</userinput>)
+    </term>
+    <listitem>
+      <variablelist>
+	<varlistentry>
+	  <term>
+	    <option>--jack-client-name=</option><replaceable>name</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The name of the JACK client to use.  Default is
+	      <userinput>glasscoder</userinput>.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--jack-gain=</option><replaceable>gain</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      Apply a fixed gain of <replaceable>gain</replaceable> dB
+	      before encoding. Default is <userinput>0</userinput> dB.
+	    </para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>
+	    <option>--jack-server-name=</option><replaceable>name</replaceable>
+	  </term>
+	  <listitem>
+	    <para>
+	      The name of the JACK server instance to use.
+	    </para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1 id='supported_url_schemes'><title>Supported URL Schemes</title>
+<para>
+  Not all URL schemes are supported by all server types. The following
+  chart breaks down the options.
+</para>
+<table xml:id='table.supported_url_schemes_by_server_type' frame='all'>
+  <title>Supported URL Schemes by Server Type</title>
+  <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+    <colspec colname='c1'/>
+    <colspec colname='c2'/>
+    <colspec colname='c3'/>
+    <colspec colname='c4'/>
+    <thead>
+      <row>
+	<entry align="center">Server Type</entry>
+	<entry align="center">FILE://</entry>
+	<entry align="center">HTTP://</entry>
+	<entry align="center">SFTP://</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+	<entry>FILE</entry>
+	<entry align="center">Yes</entry>
+	<entry align="center">No</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>FILEARCHIVE</entry>
+	<entry align="center">Yes</entry>
+	<entry align="center">No</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>HLS</entry>
+	<entry align="center">Yes</entry>
+	<entry align="center">Yes [1]</entry>
+	<entry align="center">Yes</entry>
+      </row>
+      <row>
+	<entry>IceCast2</entry>
+	<entry align="center">No</entry>
+	<entry align="center">Yes [2]</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>IceOut</entry>
+	<entry align="center">No</entry>
+	<entry align="center">Yes</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>IceStreamer</entry>
+	<entry align="center">No</entry>
+	<entry align="center">Yes</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>Shout1</entry>
+	<entry align="center">No</entry>
+	<entry align="center">Yes [2]</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry>Shout2</entry>
+	<entry align="center">No</entry>
+	<entry align="center">Yes [2]</entry>
+	<entry align="center">No</entry>
+      </row>
+      <row>
+	<entry namest='c1' nameend='c4'>
+	  [1] Utilizes the HTTP <emphasis>PUT</emphasis> and <emphasis>DELETE</emphasis> methods
+	</entry>
+      </row>
+      <row>
+	<entry namest='c1' nameend='c4'>
+	  [2] Utilizes the HTTP <emphasis>GET</emphasis> method
+	</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</table>
+</refsect1>
+
+<refsect1 id='metadata'><title>Metadata</title>
+<para>
+  GlassCoder supports the notion of two types of metadata:
+  &quot;channel-based&quot; metadata, which applies to the stream as
+  a whole and does not change for the duration of an encoding session; and
+  &quot;timed&quot; metadata, which can be
+  changed in synchronization with the content of the audio stream.
+  Channel-based metadata can be specified by means of options given to
+  <command>glasscoder</command><manvolnum>1</manvolnum> and will be covered
+  in detail in the sections devoted to specific server types (below).
+</para>
+<para>
+  The primary mechanism for supplying timed metadata in GlassCoder is by
+  means of a JSON document containing the desired metadata, sent to the
+  target <command>glasscoder</command><manvolnum>1</manvolnum> instance
+  at the port specified by the <option>--metadata-port</option> option
+  by means of an HTTP <emphasis>POST</emphasis> operation. The basic format
+  of the JSON document is as follows:
+</para>
+<literallayout>
+  {
+      "Metadata": {
+          "Field1": "Some value",
+          "Field2": "Some other value"
+      }
+  }
+</literallayout>
+<para>
+  Not all server types support metadata, and those that do utilize wildly
+  different schemas. Following is a breakdown of the available metadata
+  options by server type:
+</para>
+<refsect2 id='metadata.icecast2'><title>IceCast2</title>
+<refsect3 id='metadata.icecast2.channel_metadata'><title>Channel Metadata</title>
+<para>
+  IceCast2 supports the following channel metadata fields:
+</para>
+<variablelist>
+  <varlistentry>
+    <term>Name</term>
+    <listitem>
+      <para>
+	Specified by the <option>--stream-name</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Description</term>
+    <listitem>
+      <para>
+	Specified by the 
+	<option>--stream-description</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>URL</term>
+    <listitem>
+      <para>
+	Should be a link to content related to the stream. Specified by the 
+	<option>--stream-url</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Genre</term>
+    <listitem>
+      <para>
+	Should be a single word describing the nature of the stream content.
+	Specified by the <option>--stream-genre</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id='metadata.icecast2.timed_metadata'><title>Timed Metadata</title>
+<para>
+  IceCast2 provides one field of text, called
+  <computeroutput>StreamTitle</computeroutput>, which can be dynamically
+  updated to reflect the content currently playing on the stream.
+  By convention, this is usually formatted as
+  '<userinput>Artist</userinput> - <userinput>Title</userinput>' on streams
+  containing musical content.
+</para>
+<para>
+  For example, to set the <computeroutput>StreamTitle</computeroutput> field to
+  <userinput>The Beatles - Hey Jude</userinput>, the following JSON
+  could be used:
+  <literallayout>
+    {
+        "Metadata": {
+            "StreamTitle": "The Beatles - Hey Jude"
+        }
+    }
+  </literallayout>
+</para>
+</refsect3>
+<refsect3 id='metadata.icecast2.legacy_interface'>
+  <title>Legacy Interface</title>
+  <para>
+    In addition to the primary JSON interface, the
+    <computeroutput>StreamTitle</computeroutput> can be set by sending an HTTP
+    <emphasis>GET</emphasis> request to a running
+    <command>glasscoder</command><manvolnum>1</manvolnum> instance,
+    using the TCP port specified in the
+    <option>--metadata-port=</option><replaceable>port</replaceable> option.
+    The request must be in the following format:
+  </para>
+  <literallayout>
+  http://<replaceable>hostname</replaceable>:<replaceable>tcp-port</replaceable>/admin/metadata?mount=<replaceable>mount-point</replaceable>&amp;mode=updinfo&amp;song=<replaceable>string</replaceable>
+  </literallayout>
+  <para>
+    Where:
+  </para>
+  <para>
+    <replaceable>hostname</replaceable> - The hostname or IP address of the
+    system running <command>glasscoder</command><manvolnum>1</manvolnum>
+  </para>
+  <para>
+    <replaceable>tcp-port</replaceable> - The TCP port number specified in the
+    <option>--metadata-port</option> option to
+    <command>glasscoder</command><manvolnum>1</manvolnum>
+  </para>
+  <para>
+    <replaceable>mount-point</replaceable> - The mountpoint of the stream
+  </para>
+  <para>
+    <replaceable>string</replaceable> - The string to set, encoded as specified
+    in Section 2 of RFC3986
+  </para>
+  <para>
+    For example, to set a string of &quot;The Beatles - Hey Jude&quot; via a
+    <command>glasscoder</command><manvolnum>1</manvolnum> instance running at
+    <userinput>encoder.example.com</userinput> with a
+    <option>--metadata-port</option> value of <userinput>1234</userinput>
+    for a mountpoint of <userinput>MyStream</userinput>, the URL would be:
+  </para>
+  <para>
+    <userinput>
+      http://encoder.example.com:1234/admin/metadata?mount=MyStream&amp;mode=updinfo&amp;song=The%20Beatles%20-%20Hey%20Jude
+    </userinput>
+  </para>
+</refsect3>
+</refsect2>
+
+<refsect2 id='metadata.shoutcast'><title>ShoutCast</title>
+<refsect3 id='metadata.shoutcast.channel_metadata'><title>Channel Metadata</title>
+<para>
+  ShoutCast supports the following channel metadata fields:
+</para>
+<variablelist>
+  <varlistentry>
+    <term>Name</term>
+    <listitem>
+      <para>
+	Specified by the <option>--stream-name</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>URL</term>
+    <listitem>
+      <para>
+	Should be a link to content related to the stream. Specified by the 
+	<option>--stream-url</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Genre</term>
+    <listitem>
+      <para>
+	Should be a single word describing the nature of the stream content.
+	Specified by the <option>--stream-genre</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>ICQ ID</term>
+    <listitem>
+      <para>
+	Should be User Identification Number for an ICQ user associated with
+	the stream content. Specified by the <option>--stream-icq</option>
+	option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>AOL Instant Messenger ID</term>
+    <listitem>
+      <para>
+	Should be an ID for an AOL Instant Messenger user associated with the
+	stream content. Specified by the <option>--stream-aim</option> option.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>IRC ID</term>
+    <listitem>
+      <para>
+	Should be an ID for an Internet Relay Chat channel associated with
+	the stream content. Specified by the <option>--stream-irc</option>
+	option.
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id='metadata.shoutcast.timed_metadata'><title>Timed Metadata</title>
+<para>
+  ShoutCast provides two fields of text which can be dynamically updated to
+  reflect the content currently playing on the stream, called
+  <computeroutput>StreamTitle</computeroutput> and
+  <computeroutput>StreamUrl</computeroutput>. By convention, the
+  <computeroutput>StreamTitle</computeroutput> is usually formatted as
+  '<userinput>Artist</userinput> - <userinput>Title</userinput>' on streams
+  containing musical content, while <computeroutput>StreamUrl</computeroutput>
+  is used to provide a URL whence stream specific content --e.g. album cover
+  art -- can be retrieved.
+</para>
+<para>
+  For example, to set the <computeroutput>StreamTitle</computeroutput> field to
+  <userinput>The Beatles - Hey Jude</userinput> and the
+  <computeroutput>StreamUrl</computeroutput> field to
+  <userinput>http://images.example.com/1234.png</userinput>, the following
+  JSON could be used:
+  <literallayout>
+    {
+        "Metadata": {
+            "StreamTitle": "The Beatles - Hey Jude",
+            "StreamUrl": "http://images.example.com/1234.png"
+        }
+    }
+  </literallayout>
+</para>
+<note>
+  The use of either of these fields is optional in any given metadata
+  update. If only one field is given, the other will remain unchanged.
+</note>
+</refsect3>
+<refsect3 id='metadata.shoutcast.legacy_interface'>
+  <title>Legacy Interface</title>
+  <para>
+    In addition to the primary JSON interface, the
+    <computeroutput>StreamTitle</computeroutput> and
+    <computeroutput>StreamUrl</computeroutput> fields can be set by sending
+    an HTTP <emphasis>GET</emphasis> request to a running
+    <command>glasscoder</command><manvolnum>1</manvolnum> instance,
+    using the TCP port specified in the
+    <option>--metadata-port=</option><replaceable>port</replaceable> option.
+    The request must be in the following format:
+  </para>
+  <literallayout>
+    http://<replaceable>hostname</replaceable>:<replaceable>tcp-port</replaceable>/admin.cgi?pass=<replaceable>password</replaceable>&amp;mode=updinfo&amp;song=<replaceable>stream-title</replaceable>&amp;url=<replaceable>stream-url</replaceable>
+  </literallayout>
+  <para>
+    Where:
+  </para>
+  <para>
+    <replaceable>hostname</replaceable> - The hostname or IP address of the
+    system running <command>glasscoder</command><manvolnum>1</manvolnum>
+  </para>
+  <para>
+    <replaceable>tcp-port</replaceable> - The TCP port number specified in the
+    <option>--metadata-port</option> option to
+    <command>glasscoder</command><manvolnum>1</manvolnum>
+  </para>
+  <para>
+    <replaceable>password</replaceable> - The ShoutCast password, encoded as
+    specified in Section 2 of RFC3986
+  </para>
+  <para>
+    <replaceable>stream-title</replaceable> - The string to set for <computeroutput>StreamTitle</computeroutput>, encoded as specified in Section 2 of RFC3986
+  </para>
+  <para>
+    <replaceable>stream-url</replaceable> - The string to set for <computeroutput>StreamUrl</computeroutput>, encoded as specified in Section 2 of RFC3986
+  </para>
+  <para>
+    For example, to set a <computeroutput>StreamTitle</computeroutput> of
+    &quot;The Beatles - Hey Jude&quot; and a
+    <computeroutput>StreamUrl</computeroutput> of
+    &quot;http://image.example.com/1234.png&quot; with a password of
+    &quot;MyPassword&quot; via a
+    <command>glasscoder</command><manvolnum>1</manvolnum> instance running at
+    <userinput>encoder.example.com</userinput> with a
+    <option>--metadata-port</option> value of <userinput>1234</userinput>,
+    the URL would be:
+  </para>
+  <para>
+    <userinput>
+      http://encoder.example.com:1234/admin.cgi?pass=MyPassword&amp;mode=updinfo&amp;song=The%20Beatles%20-%20Hey%20Jude&amp;url=http://image.example.com/1234.png
+    </userinput>
+  </para>
+</refsect3>
+</refsect2>
+
+<refsect2 id='metadata.http_live_streams'><title>HTTP Live Streams (HLS)</title>
+<refsect3 id='metadata.http_live_streams.timed_metadata'><title>Timed Metadata</title>
+<para>
+  HLS supports timed metadata in the form of embedded ID3v2.4 tags. Available
+  fields thus include the entire set of text tags defined in the ID3v2.4
+  frame specification (available at http://id3.org/id3v2.4.0-frames).
+</para>
+<para>
+  For example, a typical metadata update could use the following JSON:
+  <literallayout>
+    {
+        "Metadata": {
+            "TIT2": "Hey Jude",
+            "TPE1": "The Beatles",
+            "TALB": "The White Album",
+            "TRSO": "WXYZ Radio"
+        }
+    }
+  </literallayout>
+</para>
+<para>
+  A user defined text information frame (<userinput>TXXX</userinput>) can
+  be sent by using the following special notation for the field identifier:
+</para>
+<para>
+  TXXX<replaceable>desc</replaceable>
+</para>
+<para>
+  Where:
+</para>
+  <para>
+    <replaceable>desc</replaceable> - The TXXX Description string (see
+    Section 4.2.6 of the ID3v2.4 Frame Specification)
+  </para>
+  <para>
+    For example:
+  </para>
+  <literallayout>
+    {
+        "Metadata": {
+            "TIT2": "Hey Jude",
+            "TPE1": "The Beatles",
+            "TALB": "The White Album",
+            "TRSO": "WXYZ Radio",
+            "TXXXxyz": "TXXX frame with a description string of \"xyz\""
+        }
+    }
+  </literallayout>
+</refsect3>
+</refsect2>
+</refsect1>
+
+<refsect1 id='bugs'><title>Bugs</title>
+<para>
+  Never use the <option>--server-auth</option> option; it allows credentials to
+  be seen by other users on the system. Use the 
+  <option>--credentials-file</option> option to specify server credentials
+  instead.
+</para>
+<para>
+  Ogg metadata support is still missing.
+</para>
+</refsect1>
+
+<refsect1 id='author'><title>Author</title>
+<para>
+  Fred Gleason &lt;fredg@paravelsystems.com&gt;
+</para>
+</refsect1>
+
+<refsect1 id='see_also'><title>See Also</title>
+<para>
+  <citerefentry>
+    <refentrytitle>glasscoder-ipc</refentrytitle><manvolnum>7</manvolnum>
+  </citerefentry>,
+  <citerefentry>
+    <refentrytitle>glasscommander</refentrytitle><manvolnum>1</manvolnum>
+  </citerefentry>,
+  <citerefentry>
+    <refentrytitle>glassgui</refentrytitle><manvolnum>1</manvolnum>
+  </citerefentry>,
+  <citerefentry>
+    <refentrytitle>jackd</refentrytitle><manvolnum>1</manvolnum>
+  </citerefentry>
+</para>
+<para>
+    RFC3986 - Uniform Resource Identifier (URI): Generic Syntax
+</para>
+<para>
+  ID3v2.4 Native Frame Specification (http://id3.org/id3v2.4.0-frames)
+</para>
+</refsect1>
+</refentry>

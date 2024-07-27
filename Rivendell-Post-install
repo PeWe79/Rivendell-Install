@@ -1,0 +1,84 @@
+#
+# Optional - Jack Audio with Promiscuous Mode
+# With Rivendell 3.x.x it is possible to get Rivendell to work with JackAudio in either promiscuous mode or with the older methods outlined below. In the future with Rivendell 4.x JackAudio using promiscuous mode will be the default and it will not be possible to change the User= field in the rivendell.service file. As a result the better approach is to use Jack in promiscuous mode as it solves a lot of the issues present in the older methods of using Jack.
+#
+sudo nano /etc/profile.d/rivendell-env.sh
+
+# And then copy / paste into the file:
+
+#
+# Run jackd(1) in promiscuous mode
+#
+export JACK_PROMISCUOUS_SERVER=audio
+
+#
+# You also need to add a line to your rivendell.service file
+#
+sudo nano /lib/systemd/system/rivendell.service
+
+#
+# And add the line Environment=JACK_PROMISCUOUS_SERVER=audio to the [Service] section of the file:
+#
+
+[Service]
+LimitNOFILE=4096
+Type=simple
+ExecStart=/usr/local/sbin/rdservice
+PrivateTmp=false
+Restart=always
+RestartSec=2
+StartLimitInterval=120
+StartLimitBurst=50
+Environment=JACK_PROMISCUOUS_SERVER=audio << Add this
+
+#
+# Save the file, and run a:
+#
+sudo systemctl daemon-reload
+
+#
+# Optional - Jack Audio (Older Method)
+# To have Systemd start up the Rivendell services under the logged in user, we have to edit the following file :
+#
+sudo nano /lib/systemd/system/rivendell.service
+
+# The following line needs to be added to the end of the [Service] section:
+User=$USER  <--- Update the '$USER' with your logged in user - the one you want the daemons and Jack to run under!
+
+# The final file should look like this:
+[Unit]
+Description=Rivendell Radio Automation System
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/rdservice
+PrivateTmp=false
+Restart=always
+RestartSec=2
+StartLimitInterval=120
+StartLimitBurst=50
+User=$USER << Edit as Ubuntu User!
+
+[Install]
+WantedBy=multi-user.target
+
+# Now we reload the service file:
+sudo systemctl daemon-reload
+
+##################################################################
+
+# Under manually started applications, add in the command to start Jackd. I normally put this into a detached screen session.
+# Once that is done, modify your root crontab :
+sudo crontab -e
+# And add in a line for a delay and a start of the Rivendell services :
+@reboot sleep 30 && systemctl restart rivendell
+
+# Note: Older and slower booting systems may need 30 changing to 60 seconds or longer.
+
+# After a reboot, the system will start the Rivendell services 30 seconds after the system has logged in. This is a bit messy but works well. If any other programs or services need to run automatically (such as rdairplay) at boot, these should have a "sleep 60" command or similar before them to ensure everything has started first.
+
+# Note: If you login manually you will need to type "sudo systemctl restart rivendell" after logging in to start Rivendell as the crontab entry above will not work (because it will run before you get a chance to login and run Jack and it needs to run after Jack has loaded). However on unattended systems, auto-login is needed to boot to the desktop and allow Rivendell to run so the crontab entry above will start everything automatically. There are probably many cleaner ways this could be run (which we will document in future) but this is our current tested method.
+
+##################################################################
+

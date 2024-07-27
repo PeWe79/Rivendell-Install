@@ -1,0 +1,170 @@
+The NEWS file for the GlassCoder package.
+
+-------------------------------------------------------------------------------
+v2.0.1 -- 25 June 2022
+
+Changes:
+   HLS Streaming. Major rework of the HLS encoder to increase
+   multi-threading and hence performance on multi-core processors.
+   Removed support for generating multi-rate streams via HLS.
+   Added a '--server-no-deletes' switch to glasscoder(1) to suppress
+   DELETE transactions (useful when publishing to services such as
+   Akamai MSL-4 which do not require client-generated publish-point
+   cleanup).
+
+   Credentials Handling. Added '--credentials-file' and '--delete-credentials'
+   switches to glasscoder(1) while deprecating use of the '--server-auth'
+   switch. Also added to glasscoder(1) is the ability to use an ssh(1)
+   identity file (private key) for authentication when publishing HLS streams.
+   See the glasscoder(1) man page for details.
+
+   Bugfixes. See the ChangeLog for details.
+-------------------------------------------------------------------------------
+v1.0.4 -- 10 January 2022
+
+Changes:
+   Fixed a packaging error on RHEL-8.
+-------------------------------------------------------------------------------
+v1.0.3 -- 9 January 2022
+
+Changes:
+   Updated the PyPAD plug-in to be compatible with Rivendell v4.x.
+-------------------------------------------------------------------------------
+v1.0.2 -- 16 August 2021
+
+Changes:
+   Added integrated Debian package generation.
+-------------------------------------------------------------------------------
+v1.0.1 -- 2 June 2020
+
+Changes:
+   Fixed bugs in glasscoder(1) that affected automatic reconnection to
+   Icecast and Shoutcast servers.
+
+   Various minor bugfixes and cleanups. See the 'ChangeLog' for details.
+-------------------------------------------------------------------------------
+v1.0.0 -- 24 January 2020
+
+Changes:
+   Updated codec support. Glasscoder(1) has been updated to work properly
+   with FDK-AACv2.
+
+   UTF-8 Enhancements. Updates and bug-fixes to support multi-byte UTF-8
+   characters fully in ICY and HLS metadata.
+
+   PyPAD Plug-in Fixes. Bug-fixes for 'pypad-glasscoder' plug-in for
+   Rivendell [thanks to Gabriele Fergola <workino@gmail.com>].
+
+-------------------------------------------------------------------------------
+v0.10.0 -- 31 October 2019
+
+Changes:
+   Dependency Changes. GlassCoder now requires Qt5, OpenSSL and TagLib
+   libraries. See the 'INSTALL' file for more information.
+
+   Metadata Support. Added a JSON-based IPC mechanism for updating timed
+   metadata. See the 'METADATA' section of the glasscoder(1) man page for
+   details.
+
+   HLS Streaming. Added support for timed metadata on HLS streams, as well
+   as SFTP and FILE transport options. See the 'SUPPORTED URL SCHEMES'
+   section of the glasscoder(1) man page for details.
+
+   Rivendell Support. Added a 'pypad_glasscoder.py' PyPAD script for
+   integration with Rivendell 3.x.
+
+-------------------------------------------------------------------------------
+v0.9.23 -- 5 August 2019
+
+Changes:
+   JACK Support. Added a '--jack-gain=' switch to glasscoder(1) to allow
+   insertion of a fixed gain before the encoding stage.
+
+   Shoutcast Support. Fixed a bug in glasscoder(1) that made it impossible
+   to connect to a Shoutcast server using credentials that included a
+   user name.
+
+-------------------------------------------------------------------------------
+v0.9.22 -- 20 March 2018
+
+Changes:
+   AudioScience HPI. Added support for DMA bus-mastering to the
+   AudioScience ASIHPI driver.
+
+-------------------------------------------------------------------------------
+v0.9.16 -- 16 September 2016
+
+Changes:
+   Webhost Library. Beginning with this release, GlassCoder requires
+   the Webhost library. See the 'INSTALL' file for details.
+
+   Metadata Update Support. It is now possible to update stream metadata
+   for Icecast and Shoutcast stream by means of HTTP messages as well as
+   commands sent to standard input of glasscoder(1) instances. See the
+   glasscoder-ipc(7) man page for details. Also added is a live metadata
+   update control to glassgui(1).
+
+   Enhanced Logging. Added the ability to add text tags to log entries
+   to allow disambiguation of messages from multiple glasscoder(1)
+   instances. See the --errors-string option in the glasscoder(1)
+   man page for details.
+
+-------------------------------------------------------------------------------
+v0.9.15 -- 16 February 2016
+
+Changes:
+   HLS Changes.  Added support for the #EXT-X-PROGRAM-DATE-TIME tag in
+   HLS playlists.
+
+   New Codec.  Added a PCM16 codec (--audio-format=PCM16).
+
+   New Command Switches.  Added --audio-atomic-frames and
+   --stream-timestamp-offset switches.
+
+   New Server Type.  Added a File Archive server type
+   (--server-type=FILEARCHIVE).
+
+   Various bugfixes.  See the ChangeLog for details.
+
+-------------------------------------------------------------------------------
+v0.9.7 -- 17 November 2015
+
+Changes:
+   Dependency Change.  HeAAC support is now accomplished using the
+   Fraunhofer Android FDK library.  See the 'INSTALL' file for details. 
+
+   GlassGui Layout.  The widget layout in GlassGuui has been extensively
+   refactored to reduce required desktop real estate.
+
+   HLS Rewrite.  Refactored HLS support to be compatible with Akamai's
+   HLS streaming service.
+
+   Command Switch Changes.  Replaced the '--server-hostname',
+   '--server-mountpoint' and '--server-port' options with a single
+   '--server-url' option and the '--server-username' and '--server=password'
+   options with	the '--server-auth' option in glasscoder(1).  See the
+   glasscoder(1) man page for details.
+
+   AudioScience HPI Support.  Added support for HPI mixers in glasscoder(1)
+   and glassgui(1).
+
+-------------------------------------------------------------------------------
+v0.9.0 -- 26 August 2015
+
+Changes:
+   New Streaming Server.  Support has been added for generating Apple HTTP
+   Live Streams.  See https://developer.apple.com/streaming/.
+
+   New Audio Sources.  Support has been added for the following audio
+   sources:
+
+      Advance Linux Sound Architecture (ALSA)
+      AudioScience HPI (ASIHPI)
+      File Streaming (FILE)
+
+   Point and Click Interface.  A 'GlassGui' applet has been added that
+   allow glasscoder(1) to be driven from a point and click interface while
+   also providing the ability to generate command-line invocations for
+   glasscoder(1) that can be copy/pasted into other environments.
+
+-------------------------------------------------------------------------------
