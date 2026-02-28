@@ -215,5 +215,7 @@ if [ "$response" == "n" ]; then
 fi
 
 # If the user says yes, reboot the computer
-reboot
+if [ "$response" == "Y" ]; then
+  # Reboot
+  reboot
 fi
