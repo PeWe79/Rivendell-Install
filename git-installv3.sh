@@ -194,6 +194,9 @@ rddbmgr --create --generate-audio
 systemctl start rivendell
 systemctl enable rivendell
 
+# Setup Log Editor on database
+echo ; echo "update `STATIONS` set `REPORT_EDITOR_PATH`='/usr/bin/gedit'" | mysql -u root Rivendell
+
 # Disable RDMonitor
 echo ; echo "Disable Rivendell Monitor" ; echo
 
