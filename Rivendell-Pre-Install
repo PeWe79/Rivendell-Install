@@ -1,0 +1,22 @@
+# Create Virtual Soundcard on VMWare :
+sudo apt -y install alsa-utils alsa-tools alsa-source
+
+#
+# Create Dummy Sound Card on VM
+sudo nano /etc/modules
+# Add this on the end :
+snd-dummy
+
+sudo modprobe snd-dummy
+sudo alsa force-reload
+
+# Disable PulseAudio :
+sudo killall pulseaudio
+sudo nano /etc/pulse/client.conf
+# >> Uncomment the autospawn and make it no:
+autospawn = no
+
+# Install Qjackcontrol :
+sudo apt -y install qjackctl
+# Do not enable "realtime" if prompted.
+ulimit -r -l
