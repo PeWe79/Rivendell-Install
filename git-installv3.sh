@@ -217,8 +217,5 @@ if [ "$response" == "n" ]; then
   exit
 fi
 
-# If the user says yes, reboot the computer
-if [ "$response" == "yY" ]; then
-  # Reboot
-  reboot
+reboot
 fi
