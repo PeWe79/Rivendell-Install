@@ -80,5 +80,8 @@ sudo crontab -e
 
 # Note: If you login manually you will need to type "sudo systemctl restart rivendell" after logging in to start Rivendell as the crontab entry above will not work (because it will run before you get a chance to login and run Jack and it needs to run after Jack has loaded). However on unattended systems, auto-login is needed to boot to the desktop and allow Rivendell to run so the crontab entry above will start everything automatically. There are probably many cleaner ways this could be run (which we will document in future) but this is our current tested method.
 
-##################################################################
+# Pypad setup
+# For Icecast/Shoutcast stream, choose in :
+/usr/local/lib64/pypad/your_pypad_select
 
+##################################################################
