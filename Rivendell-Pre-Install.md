@@ -14,7 +14,11 @@ sudo nano /etc/modules
 
 ```bash
 snd-dummy
+```
 
+## Then
+
+```bash
 sudo modprobe snd-dummy
 sudo alsa force-reload
 ```
