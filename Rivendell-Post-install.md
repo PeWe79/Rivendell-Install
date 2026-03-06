@@ -100,9 +100,9 @@ sudo crontab -e
 
 ## Note: Older and slower booting systems may need 30 changing to 60 seconds or longer
 
-## After a reboot, the system will start the Rivendell services 30 seconds after the system has logged in. This is a bit messy but works well. If any other programs or services need to run automatically (such as rdairplay) at boot, these should have a "sleep 60" command or similar before them to ensure everything has started first
+- **After a reboot, the system will start the Rivendell services 30 seconds after the system has logged in. This is a bit messy but works well. If any other programs or services need to run automatically (such as rdairplay) at boot, these should have a "sleep 60" command or similar before them to ensure everything has started first**
 
-## Note: If you login manually you will need to type "sudo systemctl restart rivendell" after logging in to start Rivendell as the crontab entry above will not work (because it will run before you get a chance to login and run Jack and it needs to run after Jack has loaded). However on unattended systems, auto-login is needed to boot to the desktop and allow Rivendell to run so the crontab entry above will start everything automatically. There are probably many cleaner ways this could be run (which we will document in future) but this is our current tested method
+- **If you login manually you will need to type `sudo systemctl restart rivendell` after logging in to start Rivendell as the crontab entry above will not work (because it will run before you get a chance to login and run Jack and it needs to run after Jack has loaded). However on unattended systems, auto-login is needed to boot to the desktop and allow Rivendell to run so the crontab entry above will start everything automatically. There are probably many cleaner ways this could be run (which we will document in future) but this is our current tested method**
 
 ## Pypad setup
 
