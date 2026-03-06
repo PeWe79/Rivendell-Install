@@ -106,7 +106,7 @@ sudo crontab -e
 
 ## Pypad setup
 
-- For Icecast/Shoutcast stream, choose in :
+- **For Icecast/Shoutcast stream, choose in :**
 
 ```bash
 /usr/local/lib64/pypad/your_pypad_select
