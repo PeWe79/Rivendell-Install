@@ -5,6 +5,7 @@ clear
 echo ; echo "Rivendell Github install Script for Ubuntu 18.04/Linux Mint 19" ; echo
 echo ; echo "More information find on Github https://github.com/ElvishArtisan/rivendell" ; echo
 echo ; echo "More information and source code at rivendellaudio.org" ; echo
+sleep 5
 
 #check for root user
 if [ "$(id -u)" != "0" ]; then
@@ -35,15 +36,18 @@ echo "We need to download and install a bunch of packages before Rivendell. This
 echo
 sleep 5
 
-echo Make sure your package database is up to date...
+echo "Make sure your package database is up to date..."; echo
+sleep 5
 
 apt-get update
 
-echo Installing build tools...
+echo "Installing build tools..."; echo
+sleep 5
 
 apt-get install -y build-essential autogen automake pkg-config libtool m4 make libssl-dev gcc g++ git unzip unrar wget
 
-echo Installing Rivendell dependencies...
+echo "Installing Rivendell dependencies..."; echo
+sleep 5
 
 apt-get install -y libqt4-dev libqt4-sql-mysql libexpat1-dev libfdk-aac-dev libmysqlclient-dev libssh-dev libtag1-dev libid3-3.8.3-dev libcurl4-openssl-dev libsndfile1-dev libpam0g-dev libsamplerate0-dev libsoundtouch-dev libsystemd-dev libjack-jackd2-dev libice-dev libsm-dev libxt-dev libxi-dev libsndfile-dev libasound2-dev libopus-dev libogg-dev libvorbis-dev libflac-dev libflac++-dev libmp3lame-dev libfaad-dev libmad0-dev libtwolame-dev libmp4v2-dev libcoverart-dev libdiscid-dev libmusicbrainz5-dev libcdparanoia-dev docbook5-xml docbook-xsl-ns xsltproc fop libxml2-utils openssh-server patch evince telnet samba ntp nfs-common smbclient net-tools traceroute ntfs-3g autofs python3-mysqldb python3 python3-pycurl python3-pymysql python3-serial python3-requests python3-dev qjackctl
 
@@ -51,12 +55,14 @@ ulimit -r -l
 
 export PATH=/sbin:$PATH
 
-echo Set up Docbook environment variable ...
+echo "Set up Docbook environment variable ..."; echo
+sleep 5
 
 export DOCBOOK_STYLESHEETS=/usr/share/xml/docbook/stylesheet/docbook-xsl-ns
 echo export DOCBOOK_STYLESHEETS=/usr/share/xml/docbook/stylesheet/docbook-xsl-ns >> ~/.bashrc
 
 echo Installing and configuring Apache2...
+sleep 5
 
 apt-get install -y apache2
 
@@ -65,6 +71,7 @@ a2enmod cgid
 systemctl restart apache2
 
 echo Installing and configuring MariaDB...
+sleep 5
 
 apt-get install -y mariadb-server
 systemctl start mariadb
@@ -75,17 +82,20 @@ cp -f assets/90-rivendell.cnf /etc/mysql/mariadb.conf.d/
 systemctl restart mysql
 
 echo "Enable DB Access for localhost .."; echo
+sleep 5
 
 mysql -e "CREATE DATABASE Rivendell;"
 mysql -e "CREATE USER 'rduser'@'localhost' IDENTIFIED BY 'letmein';"
 mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON Rivendell.* TO 'rduser'@'localhost';"
 
 echo "Enable DB Access for all remote hosts .."; echo
+sleep 5
 
 mysql -e "CREATE USER 'rduser'@'%' IDENTIFIED BY 'letmein';"
 mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON Rivendell.* TO rduser@'%';"
 
-echo Making audio storage...
+echo "Making audio storage..."; echo
+sleep 5
 
 adduser --uid 150 --system --group --home=/var/snd rivendell
 adduser $SUDO_USER rivendell
@@ -94,7 +104,8 @@ chmod ug+rwx /var/snd
 adduser --system --no-create-home pypad
 usermod -a --groups audio $SUDO_USER
 
-echo Enable NFS Access remote hosts...
+echo "Enable NFS Access remote hosts..."; echo
+sleep 5
 
 mkdir -p /home/$SUDO_USER/rd_xfer
 chown $SUDO_USER:$SUDO_USER /home/$SUDO_USER/rd_xfer
@@ -107,7 +118,8 @@ chown $SUDO_USER:$SUDO_USER /home/$SUDO_USER/traffic_export
 mkdir -p /home/$SUDO_USER/traffic_import
 chown $SUDO_USER:$SUDO_USER /home/$SUDO_USER/traffic_import
 
-echo Install NFS-Kernel-Server
+echo "Install NFS-Kernel-Server"; echo
+sleep 5
 
 apt-get -y install nfs-kernel-server
 
@@ -131,53 +143,64 @@ echo "/home/$SUDO_USER/music_import *(rw,no_root_squash)" >> /etc/exports
 echo "/home/$SUDO_USER/traffic_export *(rw,no_root_squash)" >> /etc/exports
 echo "/home/$SUDO_USER/traffic_import *(rw,no_root_squash)" >> /etc/exports
 
-echo Enable CIFS File Sharing
+echo "Enable CIFS File Sharing"; echo
+sleep 5
 
 cp /etc/samba/smb.conf /etc/samba/smb-original.conf
 cat assets/samba_shares.conf >> /etc/samba/smb.conf
 systemctl enable smbd
 systemctl enable nmbd
 
-echo Set Image Folder Rivendell..
+echo "Set Image Folder Rivendell.."; echo
+sleep 5
+
 patch -p0 /etc/rsyslog.d/50-default.conf assets/50-default.conf.patch
 mkdir -p /usr/share/pixmaps/rivendell
 cp assets/rdairplay_skin.png /usr/share/pixmaps/rivendell/
 cp assets/rdpanel_skin.png /usr/share/pixmaps/rivendell/
 
-echo Initialize Automounter
+echo "Initialize Automounter"; echo
+sleep 5
 
 cp -f assets/auto.misc.template /etc/auto.misc
 systemctl enable autofs
 
-echo Make Jack Audio with Promiscuous Mode...
+echo "Make Jack Audio with Promiscuous Mode..."; echo
+sleep 5
 
 cp assets/rivendell-env.sh /etc/profile.d/
 
-echo Downloading Rivendell
+echo "Downloading Rivendell..."; echo
+sleep 5
 
 git clone -b v3 https://github.com/ElvishArtisan/rivendell.git
 
 cd rivendell
 
-echo Generating Configuration...
+echo "Generating Configuration..."; echo
+sleep 5
 
 ./autogen.sh
 
-echo Configuring Rivendell Install...
+echo "Configuring Rivendell Install..."; echo
+sleep 5
 
 ./configure MUSICBRAINZ_LIBS="-L/usr/local/lib -ldiscid -lmusicbrainz5cc -lcoverartcc" --libexecdir=/var/www/rd-bin --sysconfdir=/etc/apache2/conf-available
 
-echo Compiling Rivendell...
+echo "Compiling Rivendell..."; echo
+sleep 5
 
 make
 
-echo Installing Rivendell...
+echo "Installing Rivendell..."; echo
+sleep 5
 
 make install
 
 ldconfig
 
-echo ; echo "Setting Up Rivendell..." ;
+echo "Setting Up Rivendell..."; echo
+sleep 5
 
 mkdir /etc/rivendell.d
 cp conf/rd.conf-sample /etc/rivendell.d/rd-default.conf
@@ -185,7 +208,8 @@ cat /etc/rivendell.d/rd-default.conf | sed s/SyslogFacility=1/SyslogFacility=23/
 mv -f /etc/rivendell.d/rd-temp.conf /etc/rivendell.d/rd-default.conf
 ln -s -f /etc/rivendell.d/rd-default.conf /etc/rd.conf
 
-echo ; echo "Make Apache2 rd-bin Work" ; echo
+echo "Make Apache2 rd-bin Work"; echo
+sleep 5
 
 a2enconf rd-bin
 systemctl reload apache2
@@ -195,14 +219,16 @@ systemctl start rivendell
 systemctl enable rivendell
 
 # Setup Log Editor on database
-echo ; echo "update `STATIONS` set `REPORT_EDITOR_PATH`='/usr/bin/gedit'" | mysql -u root Rivendell
+echo "update `STATIONS` set `REPORT_EDITOR_PATH`='/usr/bin/gedit'" | mysql -u root Rivendell
 
 # Disable RDMonitor
-echo ; echo "Disable Rivendell Monitor" ; echo
+echo "Disable Rivendell Monitor" ; echo
+sleep 5
 
 chmod -x /usr/local/bin/rdmonitor
 
-echo ; echo "Making Pypad Scipts Work.." ; echo
+echo "Making Pypad Scipts Work.." ; echo
+sleep 5
 
 cp apis/pypad/api/pypad.py /usr/lib/python3/dist-packages/
 
