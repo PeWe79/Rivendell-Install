@@ -95,7 +95,7 @@ sudo crontab -e
 ## And add in a line for a delay and a start of the Rivendell services
 
 ```bash
-@reboot sleep 60 && systemctl restart rivendell
+@reboot sleep 30 && systemctl restart rivendell
 ```
 
 ## Note: Older and slower booting systems may need 30 changing to 60 seconds or longer
